@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { useUsers } from '../hooks/useUsers'
 import {
   Spinner,
@@ -7,24 +7,15 @@ import {
   Center,
   Heading,
   Text,
-  Input,
   VStack,
-  HStack,
   Box,
   Button,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-  PopoverHeader,
-  PopoverCloseButton,
-  Select,
   Tag,
   Flex
 } from '@chakra-ui/react'
 import { MdArrowBack, MdArrowForward } from 'react-icons/md'
-import { TbNumbers } from 'react-icons/tb'
 import UserCard from '../components/UserCard/UserCard'
+import Toolbar from '../components/Toolbar/Toolbar'
 
 const Users = () => {
   const {
@@ -55,38 +46,24 @@ const Users = () => {
   const nextPage = page + 1
   const maxPage = Math.ceil(count.filtered / limit)
 
+  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setPage(1)
+    setLimit(parseInt(event.target.value))
+  }
+
   return (
       <Box w={{ base: 'full', md: '80%' }} mb='8'>
         <VStack alignItems='start' spacing={4}>
           <VStack w='full' align='start'>
             <Heading as='h1'>Gestionar usuarios</Heading><Tag>Total: {count.total}</Tag>
           </VStack>
-          <HStack alignSelf='end' w='full'>
-            <Input
-              placeholder='Buscar usuario'
-              onChange={handleFilterChange}
-            />
-            <Popover>
-              <PopoverTrigger>
-                <Button><TbNumbers size={28} /></Button>
-              </PopoverTrigger>
-              <PopoverContent>
-                <PopoverCloseButton />
-                <PopoverHeader>¿Cuántos resultados quieres que se muestren?</PopoverHeader>
-                <PopoverBody>
-                  <Select
-                    defaultValue={20}
-                    onChange={(event) => setLimit(parseInt(event.target.value))}
-                  >
-                    <option value={10}>10</option>
-                    <option value={20}>20</option>
-                    <option value={50}>50</option>
-                    <option value={100}>100</option>
-                  </Select>
-                </PopoverBody>
-              </PopoverContent>
-            </Popover>
-          </HStack>
+          <Toolbar
+            handleFilterChange={handleFilterChange}
+            handleSelectChange={handleSelectChange}
+            selectValues={[10, 20, 50, 100]}
+            limit={limit}
+            placeholder='Buscar usuario...'
+          />
           {isLoading
             ? <Loading />
             : <SimpleGrid

@@ -10,6 +10,7 @@ export interface User {
   picture: string
   registered_date: string
   admin: boolean
+  verified: boolean
 }
 
 export interface Page {

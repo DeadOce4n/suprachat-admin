@@ -2,11 +2,14 @@ import React from 'react'
 import { SimpleGrid, Heading } from '@chakra-ui/react'
 import SectionButton from '../components/SectionButton/SectionButton'
 import { FaUserCircle } from 'react-icons/fa'
+import { useSessionStore } from '../hooks/stores/useSessionStore'
 
 const Home = () => {
+  const { nick } = useSessionStore(state => state.user)
+
   return (
     <>
-      <Heading>Bienvenidx, Gusy</Heading>
+      <Heading>Bienvenidx, {nick}</Heading>
       <SimpleGrid
         h='full'
         w={{ base: 'full', md: '80%' }}

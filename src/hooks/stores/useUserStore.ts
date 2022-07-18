@@ -1,6 +1,6 @@
 import create from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { User } from '../types/interfaces'
+import { User } from '../../types/interfaces'
 
 interface UserState {
   isLoading: boolean
@@ -20,7 +20,7 @@ interface UserState {
   setCount: (count: { total: number, actual: number, filtered: number }) => void
 }
 
-export const useStore = create<UserState>()(
+export const useUserStore = create<UserState>()(
   devtools((set) => ({
     isLoading: false,
     users: [],

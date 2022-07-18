@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, ChangeEvent } from 'react'
 import { debounce } from 'lodash'
 import { User } from '../types/interfaces'
 import { findUsers } from '../services/users'
-import { useStore } from '../hooks/useStore'
+import { useUserStore } from '../hooks/stores/useUserStore'
 
 interface Return {
   isLoading: boolean
@@ -36,7 +36,7 @@ export const useUsers = (): Return => {
     setPage,
     setLimit,
     setCount
-  } = useStore(({
+  } = useUserStore(({
     isLoading,
     users,
     page,
@@ -75,6 +75,10 @@ export const useUsers = (): Return => {
       }
     })()
   }, [filter, page, limit])
+
+  useEffect(() => {
+    if (page !== 1) setPage(1)
+  }, [filter])
 
   const handleFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFilter(event.target.value)
