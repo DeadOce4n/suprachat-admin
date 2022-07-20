@@ -24,7 +24,7 @@ const Layout = ({ pages }: { pages: Array<Page> }) => {
           w='30ch'
           p={4}
           direction='column'
-          bgColor='gray.800'
+          bgColor='gray.700'
         >
           <Image mb={2} borderRadius='lg' src={logo} />
           {pages && pages.map(page => (
@@ -51,7 +51,15 @@ const Layout = ({ pages }: { pages: Array<Page> }) => {
             Cerrar sesión
           </Button>
         </Flex>
-        <chakra.main w='full' h='full' px={8} py={4}><Outlet /></chakra.main>
+        <chakra.main
+          w='full'
+          h='100vh'
+          px={16}
+          py={8}
+          overflowY='scroll'
+        >
+          <Outlet />
+        </chakra.main>
       </HStack>
     </div>
   )

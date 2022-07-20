@@ -3,9 +3,11 @@ import { useSessionStore } from '../../hooks/stores/useSessionStore'
 import { Navigate } from 'react-router-dom'
 
 const PrivateRoute = ({ children }: { children: ReactElement }) => {
-  const isLoggedIn = useSessionStore(state => state.isLoggedIn)
+  const { isLoggedIn, isAdmin } = useSessionStore(
+    state => ({ isLoggedIn: state.isLoggedIn, isAdmin: state.user.isAdmin })
+  )
 
-  if (!isLoggedIn) return <Navigate to='/login' replace />
+  if (!isLoggedIn || !isAdmin) return <Navigate to='/login' replace />
   return children
 }
 

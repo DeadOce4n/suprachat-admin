@@ -9,15 +9,14 @@ import {
 } from '@chakra-ui/react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useSessionStore } from '../hooks/stores/useSessionStore'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 type Values = {
   nick: string
   password: string
 }
-
 const Login = () => {
-  const { register, handleSubmit } = useForm<Values>({
+  const { register, handleSubmit, reset } = useForm<Values>({
     defaultValues: {
       nick: '',
       password: ''
@@ -43,6 +42,7 @@ const Login = () => {
       await login(data)
       navigate('/', { replace: true })
     } catch (e: any) {
+      reset()
       console.log(e)
     }
   }

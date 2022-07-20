@@ -1,6 +1,7 @@
 import create from 'zustand'
 import { devtools } from 'zustand/middleware'
-import { User } from '../../types/interfaces'
+import { User, IUpdateUser } from '../../types/interfaces'
+import { updateUser } from '../../services/users'
 
 interface UserState {
   isLoading: boolean
@@ -18,10 +19,11 @@ interface UserState {
   setPage: (page: number) => void
   setLimit: (limit: number) => void
   setCount: (count: { total: number, actual: number, filtered: number }) => void
+  updateUser: (data: IUpdateUser, token: string) => Promise<void>
 }
 
 export const useUserStore = create<UserState>()(
-  devtools((set) => ({
+  devtools((set, get) => ({
     isLoading: false,
     users: [],
     page: 1,
@@ -36,6 +38,12 @@ export const useUserStore = create<UserState>()(
     addUser: (user) => set(state => ({ users: state.users.concat(user) })),
     setPage: (page) => set(() => ({ page })),
     setLimit: (limit) => set(() => ({ limit })),
-    setCount: ({ total, actual, filtered }) => (set(() => ({ count: { total, actual, filtered } })))
+    setCount: ({ total, actual, filtered }) => (set(() => ({ count: { total, actual, filtered } }))),
+    updateUser: async (data: IUpdateUser, token: string) => {
+      const user = await updateUser(data, token)
+      const users = [...get().users]
+      users[users.findIndex(u => u.nick === user.nick)] = user
+      set(() => ({ users }))
+    }
   }))
 )

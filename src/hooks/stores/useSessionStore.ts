@@ -18,6 +18,14 @@ interface SessionState {
   logout: () => void
 }
 
+interface Token {
+  user: {
+    nick: string
+    email: string
+    admin: boolean
+  }
+}
+
 export const useSessionStore = create<SessionState>()(
   devtools((set) => ({
     isLoggedIn: false,
@@ -26,7 +34,8 @@ export const useSessionStore = create<SessionState>()(
     login: async ({ nick, password }) => {
       try {
         const { token } = await login({ nick, password })
-        const { user: { nick: username, email, admin } } = jwtDecode(token)
+        const { user: { nick: username, email, admin } } = jwtDecode<Token>(token)
+        if (!admin) throw new Error('User is not an admin!')
         set(() => ({
           user: {
             token,
