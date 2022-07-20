@@ -1,6 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { ChakraProvider } from '@chakra-ui/react'
+import {
+  ChakraProvider,
+  ColorModeScript,
+  extendTheme,
+  ThemeConfig
+} from '@chakra-ui/react'
 import Layout from './components/Layout/Layout'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import PrivateRoute from './components/PrivateRoute/PrivateRoute'
@@ -10,6 +15,13 @@ import Home from './pages/Home'
 import Users from './pages/Users'
 import Login from './pages/Login'
 
+const config: ThemeConfig = {
+  initialColorMode: 'dark',
+  useSystemColorMode: false
+}
+
+const theme = extendTheme({ config })
+
 const pages: Array<Page> = [
   { title: 'Inicio', href: '/', element: <Home /> },
   { title: 'Usuarios', href: '/usuarios', element: <Users /> }
@@ -17,7 +29,8 @@ const pages: Array<Page> = [
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ChakraProvider>
+    <ColorModeScript />
+    <ChakraProvider theme={theme}>
       <BrowserRouter>
         <Routes>
           <Route element={<Layout pages={pages} />}>
