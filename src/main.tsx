@@ -7,7 +7,7 @@ import {
   ThemeConfig
 } from '@chakra-ui/react'
 import Layout from './components/Layout/Layout'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 import { Page } from './types/interfaces'
 
@@ -52,6 +52,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             />
           </Route>
           <Route path='/login' element={<Login />} />
+          <Route path='*' element={<Navigate to='/' />} />
         </Routes>
       </BrowserRouter>
     </ChakraProvider>
