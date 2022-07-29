@@ -13,7 +13,7 @@ const Home = () => {
       <SimpleGrid
         h='full'
         w={{ base: 'full', md: '80%' }}
-        columns={2}
+        columns={{ base: 1, md: 2 }}
         spacing={2}
         alignItems='start'
         mt={4}

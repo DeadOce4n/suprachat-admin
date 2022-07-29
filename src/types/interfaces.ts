@@ -33,5 +33,5 @@ export interface IUpdateUser {
 export interface Page {
   title: string
   href: string
-  element: ReactElement
+  icon: ReactElement
 }

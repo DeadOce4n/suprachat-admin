@@ -11,6 +11,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import PrivateRoute from './components/PrivateRoute/PrivateRoute'
 import { Page } from './types/interfaces'
 
+import { FaHome, FaUserAstronaut } from 'react-icons/fa'
+
 import Home from './pages/Home'
 import Users from './pages/Users'
 import Login from './pages/Login'
@@ -23,8 +25,8 @@ const config: ThemeConfig = {
 const theme = extendTheme({ config })
 
 const pages: Array<Page> = [
-  { title: 'Inicio', href: '/', element: <Home /> },
-  { title: 'Usuarios', href: '/usuarios', element: <Users /> }
+  { title: 'Inicio', href: '/', icon: <FaHome /> },
+  { title: 'Usuarios', href: '/usuarios', icon: <FaUserAstronaut /> }
 ]
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

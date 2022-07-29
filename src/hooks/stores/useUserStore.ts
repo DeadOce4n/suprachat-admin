@@ -38,7 +38,9 @@ export const useUserStore = create<UserState>()(
     addUser: (user) => set(state => ({ users: state.users.concat(user) })),
     setPage: (page) => set(() => ({ page })),
     setLimit: (limit) => set(() => ({ limit })),
-    setCount: ({ total, actual, filtered }) => (set(() => ({ count: { total, actual, filtered } }))),
+    setCount: ({ total, actual, filtered }) => (set(() => (
+      { count: { total, actual, filtered } }
+    ))),
     updateUser: async (data: IUpdateUser, token: string) => {
       const user = await updateUser(data, token)
       const users = [...get().users]

@@ -1,67 +1,93 @@
 import React from 'react'
-import { useNavigate, Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import {
-  Flex,
-  Button,
   HStack,
+  VStack,
   chakra,
-  Image,
-  Spacer
+  Box,
+  Flex,
+  Text,
+  useDisclosure,
+  useBreakpointValue
 } from '@chakra-ui/react'
 import { Page } from '../../types/interfaces'
 import { useSessionStore } from '../../hooks/stores/useSessionStore'
-import logo from '../../assets/img/logo.png'
+import Menu, { Drawer } from './Menu'
+import Topbar from './Topbar'
 
 const Layout = ({ pages }: { pages: Array<Page> }) => {
-  const navigate = useNavigate()
   const logout = useSessionStore(state => state.logout)
+  const { isOpen, onToggle, onClose } = useDisclosure()
+  const isAnchored = useBreakpointValue({ base: false, md: true })
+  const navigate = useNavigate()
 
   return (
-    <div style={{ height: '100vh', overflowY: 'scroll' }}>
-      <HStack w='full' h='full'>
-        <Flex
-          h='full'
-          w='30ch'
-          p={4}
-          direction='column'
-          bgColor='gray.700'
-        >
-          <Image mb={2} borderRadius='lg' src={logo} />
-          {pages && pages.map(page => (
-            <Button
-              colorScheme='teal'
-              key={page.title}
-              my={2}
-              w='full'
-              onClick={() => navigate(page.href)}
+    <chakra.div
+      h={{ base: '100%', md: '100vh' }}
+      w='100%'
+      position='fixed'
+      overflowY='hidden'
+    >
+      <HStack
+        w='full'
+        h='full'
+        spacing={0}
+      >
+        {isAnchored
+          ? (
+            <VStack
+              h='full'
+              w={isOpen ? '25ch' : '8ch'}
+              bgColor='gray.700'
+              display={{ base: 'none', md: 'initial' }}
+              position='sticky'
+              top={0}
+              left={0}
             >
-              {page.title}
-            </Button>
-          ))}
-          <Spacer />
-          <Button
-            w='full'
-            my={2}
-            colorScheme='orange'
-            onClick={() => {
-              logout()
-              navigate('/login', { replace: true })
-            }}
-          >
-            Cerrar sesión
-          </Button>
-        </Flex>
-        <chakra.main
+              <Menu
+                pages={pages}
+                isOpen={isOpen}
+                logout={logout}
+                onToggle={onToggle}
+                navigate={navigate}
+              />
+            </VStack>)
+          : (
+            <Drawer
+              isOpen={isOpen}
+              onClose={onClose}
+              header='Menú'
+              pages={pages}
+              navigate={navigate}
+              onToggle={onToggle}
+              logout={logout}
+            />
+            )}
+        <Flex
           w='full'
-          h='100vh'
-          px={16}
-          py={8}
-          overflowY='scroll'
+          h='full'
+          direction='column'
         >
-          <Outlet />
-        </chakra.main>
+          <Topbar
+            handleToggle={onToggle}
+            handleGoBack={() => navigate(-1)}
+          />
+          <chakra.main
+            w='full'
+            px={{ base: 4, md: 16 }}
+            py={{ base: 4, md: 8 }}
+            overflowY='scroll'
+            flex={1}
+          >
+            <Outlet />
+            <Box w='full' px={20} py={10}>
+              <Text align='center'>2022 SupraChat AdminPanel</Text>
+              <Text align='center'>Made by DeadOcean</Text>
+            </Box>
+          </chakra.main>
+        </Flex>
       </HStack>
-    </div>
+    </chakra.div>
   )
 }
 
