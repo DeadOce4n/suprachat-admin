@@ -12,8 +12,8 @@ steps:
   - name: deploy
     image: appleboy/drone-ssh
     settings:
-      host: ivanpartida.xyz
-      username: ivan
+      host: suprachat.net
+      username: apiuser
       key:
         from_secret: ssh-key
       port: 39901
