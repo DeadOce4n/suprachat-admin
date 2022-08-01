@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, cleanup, fireEvent } from '@testing-library/react'
-import { it, expect, describe, beforeEach, afterEach, vi } from 'vitest'
+import { it, expect, describe, afterEach, vi } from 'vitest'
 import UserCard from './UserCard'
 
 const baseUser = {
