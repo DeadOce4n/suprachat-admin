@@ -1,4 +1,4 @@
-import React from 'react'
+import { cloneElement } from 'react'
 import {
   Box,
   Text,
@@ -40,7 +40,7 @@ const SectionButton = ({
         </Box>
         <Spacer />
         <Center>
-          {React.cloneElement(icon)}
+          {cloneElement(icon)}
         </Center>
       </Flex>
     </Box>

@@ -1,4 +1,4 @@
-import React, { useState, useRef, ChangeEvent } from 'react'
+import { useState, useRef, ChangeEvent } from 'react'
 import { useUsers } from '../hooks/useUsers'
 import {
   Spinner,

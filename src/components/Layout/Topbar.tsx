@@ -1,9 +1,9 @@
-import React from 'react'
 import {
   Flex,
   Spacer,
   IconButton
 } from '@chakra-ui/react'
+import { useLocation } from 'react-router-dom'
 import { IoMdArrowRoundBack, IoMdMenu } from 'react-icons/io'
 
 interface Props {
@@ -12,6 +12,7 @@ interface Props {
 }
 
 const Topbar = ({ handleToggle, handleGoBack }: Props) => {
+  const location = useLocation()
   return (
     <Flex
       py={4}
@@ -33,6 +34,7 @@ const Topbar = ({ handleToggle, handleGoBack }: Props) => {
         fontSize='xl'
         onClick={handleGoBack}
         color='black'
+        disabled={location.pathname === '/'}
       />
       <Spacer />
     </Flex>

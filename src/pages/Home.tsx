@@ -1,4 +1,3 @@
-import React from 'react'
 import { SimpleGrid, Heading } from '@chakra-ui/react'
 import SectionButton from '../components/SectionButton/SectionButton'
 import { FaUserCircle } from 'react-icons/fa'
