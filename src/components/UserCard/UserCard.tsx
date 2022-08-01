@@ -69,7 +69,7 @@ const UserCard = ({ user, onOpen, handleVerify }: Props) => {
         </Wrap>
         <Text>Miembro desde: {dayjs(rgDate).format('DD/MMM/YYYY')}</Text>
         <Spacer />
-        <HStack mt={2}>
+        <Wrap mt={2}>
           <Button
             leftIcon={<MdLock />}
             onClick={() => onOpen(_id, nick)}
@@ -84,7 +84,7 @@ const UserCard = ({ user, onOpen, handleVerify }: Props) => {
               Verificar
             </Button>
           )}
-        </HStack>
+        </Wrap>
       </Flex>
     </>
   )
