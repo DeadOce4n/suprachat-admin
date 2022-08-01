@@ -19,15 +19,13 @@ import {
 import { User } from '../../types/interfaces'
 import dayjs from 'dayjs'
 
-const UserCard = ({
-  user,
-  onOpen,
-  handleVerify
-}: {
-  user: User
+interface Props {
+  user: User,
   onOpen: (_id: string, nick: string) => void
   handleVerify: (_id: string, verified: boolean) => Promise<void>
-}) => {
+}
+
+const UserCard = ({ user, onOpen, handleVerify }: Props) => {
   const {
     _id,
     nick,
