@@ -20,4 +20,6 @@ steps:
       command_timeout: 2m
       script:
         - sh build-admin.sh
-
+    when:
+      branch:
+        - master
