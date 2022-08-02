@@ -33,13 +33,17 @@ const Toolbar = ({
       <Input placeholder={placeholder} onChange={handleFilterChange} />
       <Popover>
         <PopoverTrigger>
-          <Button><TbNumbers size={28} /></Button>
+          <Button aria-label='limit-button'><TbNumbers size={28} /></Button>
         </PopoverTrigger>
         <PopoverContent>
           <PopoverCloseButton />
           <PopoverHeader>¿Cuántos resultados quieres ver?</PopoverHeader>
           <PopoverBody>
-            <Select defaultValue={limit} onChange={handleSelectChange}>
+            <Select
+              defaultValue={limit}
+              onChange={handleSelectChange}
+              aria-label='limit-options'
+            >
               {selectValues.map(value => <option key={value} value={value}>{value}</option>)}
             </Select>
           </PopoverBody>
